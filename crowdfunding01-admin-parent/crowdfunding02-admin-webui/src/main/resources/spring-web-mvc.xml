@@ -34,6 +34,7 @@
             <props>
                 <!-- key属性指定异常类名，标签体中写对应的视图（这个值要拼前后缀得到具体路径）-->
                 <prop key="java.lang.Exception">system-error</prop>
+                <prop key="com.crowdfunding.exception.AccessForbiddenException">admin-login</prop>
             </props>
         </property>
     </bean>
@@ -47,6 +48,21 @@
     -->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+
+    <!-- 注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- mapping配置要拦截的资源，/*对应一层路径，/**对应多层路径（aaa/bbb，aaa/bbb/ccc-->
+            <mvc:mapping path="/**"/>
+            <!-- 不拦截的资源-->
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+            <mvc:exclude-mapping path="/admin/do/Login.html"/>
+            <mvc:exclude-mapping path="/admin/do/logout.html"/>
+            <!-- 配置拦截器的类-->
+            <bean class="com.crowdfunding.mvc.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
 
 
 </beans>

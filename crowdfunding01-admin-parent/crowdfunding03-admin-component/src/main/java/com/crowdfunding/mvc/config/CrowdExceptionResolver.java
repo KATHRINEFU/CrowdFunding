@@ -1,6 +1,7 @@
 package com.crowdfunding.mvc.config;
 
 import com.crowdfunding.constant.CrowdConstant;
+import com.crowdfunding.exception.AccessForbiddenException;
 import com.crowdfunding.exception.LoginFailedException;
 import com.crowdfunding.util.CrowdUtil;
 import com.crowdfunding.util.ResultEntity;
@@ -16,6 +17,15 @@ import java.io.IOException;
 //ControllerAdvice表示当前类为基于注解的异常处理类，
 @ControllerAdvice
 public class CrowdExceptionResolver {
+
+    // 未登录异常
+    @ExceptionHandler(value = AccessForbiddenException.class)
+    public ModelAndView resolveAccessForbiddenException(AccessForbiddenException exception,
+                                                        HttpServletRequest request,
+                                                        HttpServletResponse response) throws IOException {
+        String viewName = "admin-login";
+        return commonResolve(viewName,exception,request,response);
+    }
 
     @ExceptionHandler(value = LoginFailedException.class)
     public ModelAndView resolveLoginFailedException(

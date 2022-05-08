@@ -23,7 +23,7 @@ public class AdminHandler {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping("admin/do/logout.html")
+    @RequestMapping("/admin/do/logout.html")
     public String doLogout(HttpSession session){
         session.invalidate(); //强制session失效
         return "redirect:/admin/to/login/page.html";

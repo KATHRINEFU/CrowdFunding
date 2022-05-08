@@ -19,8 +19,14 @@
     <!-- http://localhost:8080/crowdfunding02_admin_webui_war/-->
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
     <script type="text/javascript" src="jquery/jquery-3.6.0.js"></script>
-    <script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript">
         $(function (){
+            $("#btn4").click(function (){
+                layer.msg("Layer's Pop-up");
+            });
+
+
             $("#btn3").click(function (){
                 // prepare data \
                 var student = {
@@ -115,5 +121,7 @@
     <button id="btn2">Send [5,8,12] Two</button>
     <br/>
     <button id="btn3">Send Compose Subject</button>
+    <br/>
+    <button id="btn4">Click Me for Pop-ups</button>
 </body>
 </html>

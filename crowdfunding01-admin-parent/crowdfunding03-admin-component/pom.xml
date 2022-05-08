@@ -144,6 +144,14 @@
             <artifactId>jcl-over-slf4j</artifactId>
         </dependency>
 
+        <!--Servlet  -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
 
     </dependencies>
 

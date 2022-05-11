@@ -45,11 +45,11 @@
         </p>
 
         <div class="form-group has-success has-feedback">
-            <input type="text" name = "LoginAcct" class="form-control" id="inputSuccess4" placeholder="Enter Account Name" autofocus>
+            <input type="text" name = "loginAcct" value="jerry" class="form-control" id="inputSuccess4" placeholder="Enter Account Name" autofocus>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-success has-feedback">
-            <input type="text" name = "UserPswd" class="form-control" id="inputSuccess5" placeholder="Enter Login Password" style="margin-top:10px;">
+            <input type="text" name = "userPswd" value="123456" class="form-control" id="inputSuccess5" placeholder="Enter Login Password" style="margin-top:10px;">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>

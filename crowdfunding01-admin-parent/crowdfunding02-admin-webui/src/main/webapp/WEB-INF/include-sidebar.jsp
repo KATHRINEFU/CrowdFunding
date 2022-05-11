@@ -16,7 +16,7 @@
         <span><i class="glyphicon glyphicon glyphicon-tasks"></i> Access Control <span class="badge" style="float:right">5</span></span>
         <ul style="margin-top:10px;display:none;">
           <li style="height:30px;">
-            <a href="user.html"><i class="glyphicon glyphicon-user"></i> User Maintenance</a>
+            <a href="/admin/get/page.html"><i class="glyphicon glyphicon-user"></i> User Maintenance</a>
           </li>
           <li style="height:30px;">
             <a href="role.html"><i class="glyphicon glyphicon-king"></i> Character Maintenance</a>

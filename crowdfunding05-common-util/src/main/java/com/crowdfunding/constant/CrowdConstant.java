@@ -15,4 +15,6 @@ public class CrowdConstant {
     public static final  String ATTR_NAME_LOGIN_ADMIN = "loginAdmin";
 
     public static final String MESSAGE_SYSTEM_ERROR_LOGIN_NOT_UNIQUE = "System error: not unique login account";
+
+    public static final String ATTR_NAME_PAGE_INFO = "pageInfo";
 }

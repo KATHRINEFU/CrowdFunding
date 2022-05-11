@@ -2,6 +2,8 @@ package com.crowdfunding.mvc.config;
 
 import com.crowdfunding.constant.CrowdConstant;
 import com.crowdfunding.exception.AccessForbiddenException;
+import com.crowdfunding.exception.LoginAcctAlreadyInUseException;
+import com.crowdfunding.exception.LoginAcctAlreadyInUseForUpdateException;
 import com.crowdfunding.exception.LoginFailedException;
 import com.crowdfunding.util.CrowdUtil;
 import com.crowdfunding.util.ResultEntity;
@@ -17,6 +19,22 @@ import java.io.IOException;
 //ControllerAdvice表示当前类为基于注解的异常处理类，
 @ControllerAdvice
 public class CrowdExceptionResolver {
+
+    @ExceptionHandler(value = LoginAcctAlreadyInUseForUpdateException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseForUpdateException(
+            LoginAcctAlreadyInUseForUpdateException exception, HttpServletRequest request, HttpServletResponse response
+    ) throws IOException {
+        String viewName = "system-error"; //changable
+        return commonResolve(viewName, exception, request, response);
+    }
+
+    @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseException(
+            LoginAcctAlreadyInUseException exception, HttpServletRequest request, HttpServletResponse response
+    ) throws IOException {
+        String viewName = "admin-add"; //changable
+        return commonResolve(viewName, exception, request, response);
+    }
 
     // 未登录异常
     @ExceptionHandler(value = AccessForbiddenException.class)

@@ -1,7 +1,9 @@
 package com.crowdfunding.test;
 
 import com.crowdfunding.entity.Admin;
+import com.crowdfunding.entity.Role;
 import com.crowdfunding.mapper.AdminMapper;
+import com.crowdfunding.mapper.RoleMapper;
 import com.crowdfunding.service.api.AdminService;
 import org.junit.Test;
 import org.junit.platform.commons.logging.Logger;
@@ -33,6 +35,15 @@ public class CrowdTest {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Test
+    public void testRoleSave(){
+        for(int i=0; i<235; i++){
+            roleMapper.insert(new Role(null,"role"+i));
+        }
+    }
     @Test
     public void test(){
         for(int i=0; i<238; i++){

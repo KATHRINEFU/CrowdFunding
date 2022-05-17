@@ -48,7 +48,7 @@
                     <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="/admin/get/page.html" method="post" class="form-inline" role="form" style="float:left;">
+                    <form action="/crowdfunding02_admin_webui_war/admin/get/page.html" method="post" class="form-inline" role="form" style="float:left;">
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">Search keyword</div>

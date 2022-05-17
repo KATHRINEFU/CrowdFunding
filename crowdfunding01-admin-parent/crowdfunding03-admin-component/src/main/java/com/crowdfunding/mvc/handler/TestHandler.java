@@ -1,7 +1,6 @@
 package com.crowdfunding.mvc.handler;
 
 import com.crowdfunding.entity.Admin;
-import com.crowdfunding.entity.Student;
 import com.crowdfunding.service.api.AdminService;
 import com.crowdfunding.util.CrowdUtil;
 import com.crowdfunding.util.ResultEntity;
@@ -25,14 +24,14 @@ public class TestHandler {
     @Autowired
     private AdminService adminService;
 
-    @ResponseBody
-    @RequestMapping("/send/compose/object.json")
-    public ResultEntity<Student> testReceiveComplicatedObject(@RequestBody Student student, HttpServletRequest request){
-        boolean judgeResult = CrowdUtil.judgeRequestType(request);
-        logger.info("judgeResult = "+ judgeResult);
-        logger.info(student.toString());
-        return ResultEntity.successWithData(student);
-    }
+//    @ResponseBody
+//    @RequestMapping("/send/compose/object.json")
+//    public ResultEntity<Student> testReceiveComplicatedObject(@RequestBody Student student, HttpServletRequest request){
+//        boolean judgeResult = CrowdUtil.judgeRequestType(request);
+//        logger.info("judgeResult = "+ judgeResult);
+//        logger.info(student.toString());
+//        return ResultEntity.successWithData(student);
+//    }
 
     @ResponseBody
     @RequestMapping("/send/array/two.html")

@@ -16,10 +16,10 @@
         <span><i class="glyphicon glyphicon glyphicon-tasks"></i> Access Control <span class="badge" style="float:right">5</span></span>
         <ul style="margin-top:10px;display:none;">
           <li style="height:30px;">
-            <a href="/admin/get/page.html"><i class="glyphicon glyphicon-user"></i> User Maintenance</a>
+            <a href="/crowdfunding02_admin_webui_war/admin/get/page.html"><i class="glyphicon glyphicon-user"></i> User Maintenance</a>
           </li>
           <li style="height:30px;">
-            <a href="role.html"><i class="glyphicon glyphicon-king"></i> Character Maintenance</a>
+            <a href="/crowdfunding02_admin_webui_war/role/to/page.html"><i class="glyphicon glyphicon-king"></i> Role Maintenance</a>
           </li>
           <li style="height:30px;">
             <a href="permission.html"><i class="glyphicon glyphicon-lock"></i> Menu Maintenance</a>
@@ -27,7 +27,7 @@
         </ul>
       </li>
       <li class="list-group-item tree-closed">
-        <span><i class="glyphicon glyphicon-ok"></i> Bussiness Audit <span class="badge" style="float:right">3</span></span>
+        <span><i class="glyphicon glyphicon-ok"></i> Business Audit <span class="badge" style="float:right">3</span></span>
         <ul style="margin-top:10px;display:none;">
           <li style="height:30px;">
             <a href="auth_cert.html"><i class="glyphicon glyphicon-check"></i> Real-name authentication audit</a>

@@ -73,7 +73,7 @@
             $("#addModal [name=roleName]").val("");
         });
 
-        //给页面的pencilBtn绑定单击响函数，目的是打开模态框
+        //6. 给页面的pencilBtn绑定单击响函数，目的是打开模态框
         //传统的事件绑定方式只能在第一个页面生效，翻页后失效，因为会重新绘制按钮
         // $(".pencilBtn").click(function (){
         //     console.log("clicking pencil Btn");
@@ -94,7 +94,7 @@
             $("#editModal [name = roleName]").val(roleName);
         });
 
-        //给更新模态框中的更新按钮绑定单击相应函数
+        //7. 给更新模态框中的更新按钮绑定单击相应函数
 
         // 发送更新请求
         $("#updateRoleBtn").click(function () {
@@ -127,6 +127,92 @@
             $("#editModal").modal("hide");
         });
 
+        //8.点击确认模态框的确认删除按钮执行删除
+        $("#removeRoleBtn").click(function () {
+            //从全局变量获取roleId数组转化为json
+            var requestBody = JSON.stringify(window.roleIdArray);
+            $.ajax({
+                "url": "role/remove/by/role/id/array.json",
+                "type": "post",
+                "data": requestBody,
+                "contentType": "application/json;charset=UTF-8",
+                "dataType": "json",
+                "success": function (response) {
+                    var result = response.result;
+                    if (result == "SUCCESS") {
+                        layer.msg(response.message)
+                        // 重新加载分页
+                        generatePage();
+                    }
+                    if (result == "FAILED") {
+                        layer.msg("更新失败！")
+                    }
+                },
+                "error": function (response) {
+                    layer.msg(response.status + " " + response.statusText)
+                }
+            });
+
+            $("#confirmModal").modal("hide");
+        });
+
+        //9.给单条删除按钮绑定单击相应函数
+        $("#rolePageBody").on("click",".removeBtn", function (){
+            //从当前按钮出发获取roleName
+            var roleName = $(this).parent().prev().text();
+            //创建role对象
+            var roleArray = [{
+                roleId:this.id,
+                roleName:roleName
+            }]
+            //打开模态框
+             showConfirmModal(roleArray);
+        });
+
+        //10.给总的checkbox绑定单击相应函数
+        $("#summaryBox").click(function (){
+            console.log("clicking summary box...")
+            //1)获取当前多选框自身的状态
+            var currentStatus = this.checked;
+            //2)用当前多选框状态设置其他多选框
+            $(".itemBox").prop("checked", currentStatus);
+        });
+
+        //11.全选的反向操作
+        $("#rolePageBody").on("click", ".itemBox", function (){
+            //获取当前已经选中的.itemBox的数量
+            var checkedBoxCount = $(".itemBox:checked").length;
+            //获取全部.itemBox的数量
+            var totalBoxCount = $(".itemBox").length;
+            //使用二者的比较结果设置summaryBox
+            $("#summaryBox").prop("checked", checkedBoxCount==totalBoxCount);
+        })
+
+        //12.给批量删除的按钮绑定单击函数
+        $("#batchRemoveBtn").click(function (){
+            //创建数组对象，用来存放后面获取到的角色对象
+            var roleArray = [];
+            //遍历当前选中的checkbox
+            $(".itemBox:checked").each(function (){
+                //使用this引用当前遍历得到的checkbox
+                var roleId = this.id;
+                //通过DOM操作获取角色名称
+                var roleName = $(this).parent().next().text();
+                roleArray.push({
+                    "roleId":roleId,
+                    "roleName":roleName
+                });
+            });
+            //检查roleArray长度是否为0
+            if(roleArray.length==0){
+                layer.msg("Please at least select one to delete");
+                return;
+            }
+
+            //打开模态框
+            showConfirmModal(roleArray);
+        })
+    });
 
         //执行分页，生成页面效果，调用该函数重新加载页面
         function generatePage() {
@@ -234,7 +320,25 @@
             //取消页码超链接的默认行为
             return false;
         }
-    });
+
+        //声明专门的函数显示确认模态框
+        function showConfirmModal(roleArray){
+            $("#confirmModal").modal("show");
+            //清除旧数据
+            $("#roleNameDiv").empty();
+            //在全局变量范围，创建数组存放角色id
+            window.roleIdArray = [];
+            //遍历roleArray数组
+            for(var i=0; i<roleArray.length; i++){
+                var role = roleArray[i];
+                var roleName = role.roleName;
+                $("#roleNameDiv ").append(roleName+"<br/>");
+                var roleId = role.roleId;
+                //调用数组对象的push方法
+                window.roleIdArray.push(roleId);
+            }
+        }
+
 </script>
 <body>
 <%@include file="include-nav.jsp" %>
@@ -256,7 +360,7 @@
                         </div>
                         <button id="searchBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> Search</button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> Delete</button>
+                    <button id="batchRemoveBtn" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> Delete</button>
                     <button type="button" id="showAddModalBtn" class="btn btn-primary" style="float:right;" ><i class="glyphicon glyphicon-plus"></i> Add</button>
                     <br>
                     <hr style="clear:both;">
@@ -265,7 +369,7 @@
                             <thead>
                             <tr>
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input id="summaryBox" type="checkbox"></th>
                                 <th>Role</th>
                                 <th width="100">Operation</th>
                             </tr>
@@ -300,5 +404,6 @@
 
 <%@include file="/WEB-INF/modal-role-add.jsp"%>
 <%@include file="/WEB-INF/modal-role-edit.jsp"%>
+<%@include file="/WEB-INF/modal-role-confirm.jsp"%>
 </body>
 </html>

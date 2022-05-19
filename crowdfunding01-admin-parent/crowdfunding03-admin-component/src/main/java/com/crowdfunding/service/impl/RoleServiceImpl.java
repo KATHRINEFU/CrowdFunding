@@ -1,6 +1,7 @@
 package com.crowdfunding.service.impl;
 
 import com.crowdfunding.entity.Role;
+import com.crowdfunding.entity.RoleExample;
 import com.crowdfunding.mapper.RoleMapper;
 import com.crowdfunding.service.api.RoleService;
 import com.github.pagehelper.PageHelper;
@@ -42,4 +43,14 @@ public class RoleServiceImpl implements RoleService {
     public void updateRole(Role role) {
         roleMapper.updateByPrimaryKey(role);
     }
+
+    @Override
+    public void removeRole(List<Integer> roleIdList) {
+        RoleExample roleExample = new RoleExample();
+        RoleExample.Criteria criteria = roleExample.createCriteria();
+        // 生成where id in的sql
+        criteria.andIdIn(roleIdList);
+        roleMapper.deleteByExample(roleExample);
+    }
+
 }

@@ -22,7 +22,7 @@
             <a href="/crowdfunding02_admin_webui_war/role/to/page.html"><i class="glyphicon glyphicon-king"></i> Role Maintenance</a>
           </li>
           <li style="height:30px;">
-            <a href="permission.html"><i class="glyphicon glyphicon-lock"></i> Menu Maintenance</a>
+            <a href="/crowdfunding02_admin_webui_war/menu/to/page.html"><i class="glyphicon glyphicon-lock"></i> Menu Maintenance</a>
           </li>
         </ul>
       </li>

@@ -2,6 +2,8 @@
 <html>
 <%@include file="include-head.jsp" %>
 <link rel="stylesheet" href="css/pagination.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/zTreeStyle.css"/>
+<script type="text/javascript" src="${pageContext.request.contextPath}/ztree/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -211,7 +213,15 @@
 
             //打开模态框
             showConfirmModal(roleArray);
-        })
+        });
+
+        // 13.给分配权限按钮绑定单击响函数
+        $("#rolePageBody").on("click", ".checkBtn", function (){
+            console.log("clicking assign auth...")
+            $("#assignModal").modal("show");
+            //装载Auth树形结构数据
+            fillAuthTree();
+        });
     });
 
         //执行分页，生成页面效果，调用该函数重新加载页面
@@ -339,6 +349,62 @@
             }
         }
 
+    // 声明专门的函数用来在分配Auth的模态框中显示Auth的树形结构数据
+    function fillAuthTree(){
+
+        // a.发送ajax请求查询Auth数据
+        var ajaxReturn = $.ajax({
+            url: "assign/get/all/auth.json",
+            type: "post",
+            dataType: "json",
+            async: false
+        });
+
+        if (ajaxReturn.status !== 200) {
+            layer.msg("Request Failed："+ajaxReturn.status+" Detail："+ajaxReturn.statusText);
+            return ;
+        }
+
+        console.log("getting auth json...")
+        // b.从响应结果中获取Auth的JSON数据
+        // 从服务器端查询到的 list 不需要组装成树形结构， 这里我们交给 zTree 去组装
+        var authList = ajaxReturn.responseJSON.data;
+
+        // c.准备对 zTree 进行设置的 JSON 对象
+        var setting = {
+            data: {
+                simpleData: {
+                    // 开启简单JSON功能
+                    enable: true,
+
+                    // 使用 categoryId属性关联父节点，不用pid
+                    pIdKey: "categoryId"
+                },
+                key: {
+                    // 使用 title 属性显示节点名称， 不用默认的 name 作为属性名
+                    name: "title"
+                }
+            },
+            check: {
+                enable: true
+            }
+        };
+
+        console.log("generating auth tree...")
+        // d.生成树形结构
+        $.fn.zTree.init($("#authTreeDemo"), setting, authList);
+
+        // 获取 zTreeObj 对象
+        let zTreeObj = $.fn.zTree.getZTreeObj("authTreeDemo");
+
+        // 调用 zTreeObj 对象的方法， 把节点展开
+        zTreeObj.expandAll(true);
+
+        // e. 查询已分配的Auth的id组成的数组
+
+        // f. 根据 authIdArray 把树形结构中对应的节点勾选上
+    }
+
 </script>
 <body>
 <%@include file="include-nav.jsp" %>
@@ -405,5 +471,6 @@
 <%@include file="/WEB-INF/modal-role-add.jsp"%>
 <%@include file="/WEB-INF/modal-role-edit.jsp"%>
 <%@include file="/WEB-INF/modal-role-confirm.jsp"%>
+<%@include file="/WEB-INF/modal-role-assign-auth.jsp"%>
 </body>
 </html>

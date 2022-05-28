@@ -218,10 +218,58 @@
         // 13.给分配权限按钮绑定单击响函数
         $("#rolePageBody").on("click", ".checkBtn", function (){
             console.log("clicking assign auth...")
+            //把当前角色id存入全局
+            window.roleId = this.id;
             $("#assignModal").modal("show");
             //装载Auth树形结构数据
             fillAuthTree();
         });
+
+        // 14.给分配权限模态框中的"分配"按钮绑定单击响函数
+        $("#assignBtn").click(function (){
+            // 1)收集树形结构的各个节点中被勾选的节点
+            // 声明一个数组存放id
+            var authIdArray = [];
+            // 获取ztreeobj
+            let zTreeObj = $.fn.zTree.getZTreeObj("authTreeDemo");
+            // 获取全部被勾选的节点
+            var checkedNodes = zTreeObj.getCheckedNodes();
+            // 遍历
+            for(var i=0; i<checkedNodes.length; i++){
+                var checkedNode = checkedNodes[i];
+                var authId = checkedNode.id;
+                authIdArray.push(authId);
+            }
+
+            alert(authIdArray);
+            // 2）发送请求执行分配
+            var requestBody = {
+                "authIdArray": authIdArray,
+                //为了服务器端handler方法统一使用List<Integer>方法接受数据，统一使用数组输入
+                "roleId": [window.roleId]
+            };
+            requestBody = JSON.stringify(requestBody);
+            $.ajax({
+                "url":"assign/do/role/assign/auth.json",
+                "type": "post",
+                "data": requestBody,
+                "contentType": "application/json;charset=UTF-8",
+                "dataType": "json",
+                "success": function (response){
+                    var result = response.result;
+                    if(result=="SUCCESS"){
+                        layer.msg("Action Success")
+                    }
+                    if(result=="Failed"){
+                        layer.msg("Action Failed"+response.message);
+                    }
+                },
+                "error": function (response){
+                    layer.msg(response.status+" "+response.statusText);
+                }
+            });
+            $("#assignModal").modal("hide");
+        })
     });
 
         //执行分页，生成页面效果，调用该函数重新加载页面
@@ -401,8 +449,37 @@
         zTreeObj.expandAll(true);
 
         // e. 查询已分配的Auth的id组成的数组
+        ajaxReturn = $.ajax({
+            "url" : "/assign/get/assigned/auth/id/by/role.json",
+            "type":"post",
+            "data":{
+                "roleId":window.roleId
+            },
+            "dataType":"json",
+            "async": false
+        });
+
+        if (ajaxReturn.status !== 200) {
+            layer.msg("Request Failed："+ajaxReturn.status+" Detail："+ajaxReturn.statusText);
+            return ;
+        }
+        //从相应结果中获取authIdArray
+        var authIdArray = ajaxReturn.responseJSON.data;
+        alert(authIdArray);
 
         // f. 根据 authIdArray 把树形结构中对应的节点勾选上
+        for(var i = 0; i < authIdArray.length; i++) {
+            var authId = authIdArray[i];
+            // ②根据 id 查询树形结构中对应的节点
+            var treeNode = zTreeObj.getNodeByParam("id", authId);
+            // ③将 treeNode 设置为被勾选
+            // checked 设置为 true 表示节点勾选
+            var checked = true;
+            // checkTypeFlag 设置为 false， 表示不“联动”， 不联动是为了避免把不该勾选的勾选上
+            var checkTypeFlag = false;
+            // 执行
+            zTreeObj.checkNode(treeNode, checked, checkTypeFlag);
+        }
     }
 
 </script>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName AssignHandler
@@ -34,6 +35,15 @@ public class AssignHandler {
 
     @Autowired
     private AuthService authService;
+
+    @ResponseBody
+    @RequestMapping("/assign/do/role/assign/auth.json")
+    public ResultEntity<String> saveRoleAuthRelationship(
+            @RequestBody Map<String, List<Integer>> map
+            ){
+        authService.saveRoleAuthRelationship(map);
+        return ResultEntity.successWithoutData();
+    }
 
     @ResponseBody
     @RequestMapping("/assign/get/assigned/auth/id/by/role.json")

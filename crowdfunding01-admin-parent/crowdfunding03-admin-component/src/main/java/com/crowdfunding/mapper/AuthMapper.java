@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AuthMapper {
+    List<String> selectAssignedAuthNameByAdminId(Integer adminId);
+
     long countByExample(AuthExample example);
 
     int deleteByExample(AuthExample example);

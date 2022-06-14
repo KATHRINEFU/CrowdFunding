@@ -1,5 +1,6 @@
 package com.crowdfunding.service.impl;
 
+import checkers.units.quals.A;
 import com.crowdfunding.constant.CrowdConstant;
 import com.crowdfunding.entity.Admin;
 import com.crowdfunding.entity.AdminExample;
@@ -13,8 +14,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -26,11 +29,15 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public void saveAdmin(Admin admin) {
         // 1密码加密
         String userPswd = admin.getUserPswd();
-        userPswd = CrowdUtil.md5(userPswd);
+        //userPswd = CrowdUtil.md5(userPswd);
+        userPswd = passwordEncoder.encode(userPswd);
         admin.setUserPswd(userPswd);
 
         // 2.生成创建时间
@@ -96,6 +103,16 @@ public class AdminServiceImpl implements AdminService {
             throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED);
         }
         // 8.如果一致则返回Admin对象
+        return admin;
+    }
+
+    @Override
+    public Admin getAdminByLoginAcct(String username) {
+        AdminExample example = new AdminExample();
+        AdminExample.Criteria criteria = example.createCriteria();
+        criteria.andLoginEqualTo(username);
+        List<Admin> list =  adminMapper.selectByExample(example);
+        Admin admin = list.get(0);
         return admin;
     }
 

@@ -22,7 +22,7 @@
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Messages</a></li>
                             <li class="divider"></li>
-                            <li><a href="/security/do/logout.html "><i class="glyphicon glyphicon-off"></i> Exit</a></li>
+                            <li><a href="/admin/do/logout.html "><i class="glyphicon glyphicon-off"></i> Exit</a></li>
                         </ul>
                     </div>
                 </li>

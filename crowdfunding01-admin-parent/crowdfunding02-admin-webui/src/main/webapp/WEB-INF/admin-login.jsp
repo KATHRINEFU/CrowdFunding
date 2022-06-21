@@ -35,7 +35,7 @@
 
 <div class="container">
 
-    <form action="security/do/Login.html" method="post" class="form-signin" role="form">
+    <form action="admin/do/Login.html" method="post" class="form-signin" role="form">
         <h2 class="form-signin-heading">
             <i class="glyphicon glyphicon-log-in"></i>Admin Login
         </h2>

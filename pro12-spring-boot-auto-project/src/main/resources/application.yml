@@ -1,0 +1,36 @@
+#student:
+#  stu-id: 15
+#  stu-name: tom
+#  graduated: false
+#  subject:
+#    - java
+#    - php
+#    - python
+#  birthday: 1996/05/12
+#  teachers:
+#    java: tom
+#    php: jerry
+#    python: rachel
+#  address:
+#    province: Jiangsu
+#    city: Nanjing
+#    street: Longyang Road
+#my.best.wishes: "Happy new year!"
+#spring:
+#datasource:
+#  name: mydb
+#  type: com.alibaba.druid.pool.DruidDataSource
+#  url: jdbc:mysql://127.0.0.1:3306/springboot?serverTimezone=UTC
+#  username: Kate
+#  password: Fyh88591
+#  driver-class-name: com.mysql.cj.jdbc.Driver
+#mybatis:
+#mapper-locations: classpath*:/mybatis/mapper/*Mapper.xml
+#logging:
+#level:
+#  com.crowding.spring.boot.mapper: debug
+#  com.crowding.spring.boot.test: debug
+
+spring:
+redis:
+  host: 127.0.0.1

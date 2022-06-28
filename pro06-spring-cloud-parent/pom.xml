@@ -11,6 +11,7 @@
         <module>pro07-spring-cloud-commen</module>
         <module>pro08-spring-cloud-provider</module>
         <module>pro09-spring-cloud-consumer</module>
+        <module>pro04-spring-cloud-eureka</module>
     </modules>
     <dependencies>
         <dependency>

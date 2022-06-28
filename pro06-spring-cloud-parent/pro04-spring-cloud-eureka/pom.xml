@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>pro08-spring-cloud-provider</artifactId>
+    <artifactId>pro04-spring-cloud-eureka</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -18,20 +18,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.crowdfunding</groupId>
-            <artifactId>pro07-spring-cloud-commen</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
     </dependencies>
-
-
 
 </project>

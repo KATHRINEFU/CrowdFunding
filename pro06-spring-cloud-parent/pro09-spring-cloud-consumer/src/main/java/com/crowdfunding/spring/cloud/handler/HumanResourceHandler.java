@@ -23,7 +23,8 @@ public class HumanResourceHandler {
     public Employee getEmployeeRemote() {
 
         // 1.声明远程微服务主机地址和端口号
-        String host = "http://localhost:1000";
+        // String host = "http://localhost:1000";
+        String host = "http://ATGUIGU-PROVIDER";
         // 2.声明具体要调用的功能的 URL 地址
         String url = "/provider/get/employee/remote";
 

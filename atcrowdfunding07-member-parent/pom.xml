@@ -19,6 +19,8 @@
         <module>atcrowdfunding15-member-pay-consumer</module>
         <module>atcrowdfunding16-member-zuul</module>
         <module>atcrowdfunding17-member-api</module>
+        <module>atcrowdfunding10-member-mysql-provider</module>
+        <module>atcrowdfunding10-member-mysql-provider</module>
     </modules>
 
     <properties>
